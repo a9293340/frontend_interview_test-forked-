@@ -3,23 +3,3 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 }
-
-h2,
-h3 {
-  margin-bottom: 5px;
-}
-h3 {
-  color: rgba(59, 160, 255, 0.908);
-}
-span {
-  display: block;
-  font-weight: 800;
-  color: rgba(255, 97, 97, 0.909);
-}
-img {
-  margin: 10px 0;
-  width: 500px;
-}
-p {
-  margin: 2.5px;
-}
