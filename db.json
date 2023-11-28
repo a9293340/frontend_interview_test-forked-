@@ -2,45 +2,45 @@
   "posts": [
     {
       "id": 1,
-      "title": "測試項目1",
-      "imgage": "/images/01.png",
+      "title": "測試項目12",
+      "image": "/images/01.png",
       "status": 0,
       "link": ""
     },
     {
       "id": 2,
       "title": "測試項目2",
-      "imgage": "/images/02.png",
+      "image": "/images/02.png",
       "status": 0,
       "link": ""
     },
     {
       "id": 3,
       "title": "測試項目3",
-      "imgage": "/images/03.png",
+      "image": "/images/03.png",
       "status": 0,
       "link": ""
     },
     {
       "id": 4,
       "title": "測試項目4",
-      "imgage": "/images/04.png",
+      "image": "/images/04.png",
       "status": 0,
       "link": ""
     },
     {
       "id": 5,
       "title": "測試項目5",
-      "imgage": "/images/05.png",
+      "image": "/images/05.png",
       "status": 0,
       "link": ""
     },
     {
       "id": 6,
-      "title": "111",
-      "imgage": "/images/05.png",
+      "title": "1",
+      "image": "/images/Aroma.png",
       "status": 0,
-      "link": "134"
+      "link": "2"
     }
   ]
 }

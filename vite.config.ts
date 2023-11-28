@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-
+import fs from "vite-plugin-fs";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import ElementPlus from "unplugin-element-plus/vite";
@@ -10,6 +10,9 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 export default defineConfig({
 	plugins: [
 		vue(),
+		fs({
+			rootDir: "./public",
+		}),
 		AutoImport({
 			include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
 			imports: ["vue", "pinia"],
@@ -36,6 +39,11 @@ export default defineConfig({
 				target: "http://localhost:3000/",
 				changeOrigin: true,
 				rewrite: (path) => path.replace("/api", ""),
+			},
+			"/img": {
+				target: "http://localhost:3001/",
+				changeOrigin: true,
+				rewrite: (path) => path.replace("/img", ""),
 			},
 		},
 	},
