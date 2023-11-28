@@ -38,9 +38,16 @@
     {
       "id": 6,
       "title": "1",
-      "image": "/images/Aroma.png",
+      "image": "/images/blue-eyes.png",
       "status": 0,
       "link": "2"
+    },
+    {
+      "id": 7,
+      "title": "123",
+      "image": "/images/Aroma.png",
+      "status": 0,
+      "link": "456"
     }
   ]
 }
