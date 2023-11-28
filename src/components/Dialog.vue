@@ -24,7 +24,8 @@ watch(editData, async () => {
 });
 
 const checkHasOriginImage = async () => {
-	imageBase64.value = await getImageBase64(editData.value.image);
+	if (editData.value.image !== "")
+		imageBase64.value = await getImageBase64(editData.value.image);
 };
 
 const onSubmit = async (values: any) => {
@@ -37,31 +38,33 @@ const onSubmit = async (values: any) => {
 	errorInput.value = false;
 
 	try {
-		// 取得原始圖檔
-		originImagePath.value = (
-			await httpReq<DefaultData[]>(`/api/posts?id=${editData.value.id}`)
-		)[0].image;
+		if (editType.value === "Edit") {
+			// 取得原始圖檔
+			originImagePath.value = (
+				await httpReq<DefaultData[]>(`/api/posts?id=${editData.value.id}`)
+			)[0].image;
 
-		// 取得所有資料用到的圖檔
-		const imagesList = (await httpReq<DefaultData[]>(`/api/posts`)).map(
-			(el) => el.image
-		);
+			// 取得所有資料用到的圖檔
+			const imagesList = (await httpReq<DefaultData[]>(`/api/posts`)).map(
+				(el) => el.image
+			);
 
-		// 更換圖片需要清除原先圖檔;
-		// 需要原本有圖片 且圖片並未與其他資料庫共用
-		if (
-			originImagePath.value !== "" &&
-			!imagesList.find((x) => x === originImagePath.value)
-		)
-			await fetch("/img/api/saveImage", {
-				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					fileName: originImagePath.value,
-				}),
-			});
+			// 更換圖片需要清除原先圖檔;
+			// 需要原本有圖片 且圖片並未與其他資料庫共用
+			if (
+				originImagePath.value !== "" &&
+				!imagesList.find((x) => x === originImagePath.value)
+			)
+				await fetch("/img/api/saveImage", {
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						fileName: originImagePath.value,
+					}),
+				});
+		}
 		// 儲存圖檔
 		if (imageBase64.value)
 			await fetch("/img/api/saveImage", {
@@ -99,6 +102,8 @@ const onSubmit = async (values: any) => {
 			type: "success",
 		});
 	} catch (error) {
+		console.log(error);
+
 		if (error)
 			ElMessage({
 				message: error as string,
@@ -108,6 +113,14 @@ const onSubmit = async (values: any) => {
 	// 清空
 	originImagePath.value = "";
 	imageBase64.value = "";
+
+	editData.value = {
+		id: 0,
+		title: "",
+		image: "",
+		status: 0,
+		link: "",
+	};
 
 	emits("close");
 };
