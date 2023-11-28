@@ -39,13 +39,20 @@ const onSubmit = async (values: any) => {
 	try {
 		// 取得原始圖檔
 		originImagePath.value = (
-			await httpReq<DefaultData[]>(`/api/posts/?id=${editData.value.id}`)
+			await httpReq<DefaultData[]>(`/api/posts?id=${editData.value.id}`)
 		)[0].image;
-		console.log(originImagePath.value);
-		console.log(editData.value.image);
+
+		// 取得所有資料用到的圖檔
+		const imagesList = (await httpReq<DefaultData[]>(`/api/posts`)).map(
+			(el) => el.image
+		);
 
 		// 更換圖片需要清除原先圖檔;
-		if (originImagePath.value !== "")
+		// 需要原本有圖片 且圖片並未與其他資料庫共用
+		if (
+			originImagePath.value !== "" &&
+			!imagesList.find((x) => x === originImagePath.value)
+		)
 			await fetch("/img/api/saveImage", {
 				method: "DELETE",
 				headers: {
